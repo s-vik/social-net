@@ -1,0 +1,8 @@
+.App_header {
+    grid-area: head;
+    background-color: #444;
+  }
+.App_header img {
+    width: 140px;
+    height: 120px;
+}
