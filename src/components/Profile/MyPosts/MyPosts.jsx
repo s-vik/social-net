@@ -13,7 +13,7 @@ const MyPosts = (props) => {
     }
     let handleChangeTextArea = () => {
       let text = messageElement.current.value;
-      props.changeValue(text);
+      props.changeValuePost(text);
     }
   return (
     <div className={s.postBlock}>

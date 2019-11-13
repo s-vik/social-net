@@ -5,10 +5,16 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 import state from './redux/state';
-import { addPost, changeValue } from './redux/state';
+import { addPost, changeValuePost, addMessage, changeValueDialogsMessage } from './redux/state';
 
-export let renderEntireTree = (prop) => {
-    ReactDOM.render(<BrowserRouter><App changeValue={changeValue} addPost={addPost} state={state||prop.state} /></BrowserRouter>, document.getElementById('root'));
+export const renderEntireTree = (prop) => {
+    ReactDOM.render(<BrowserRouter><App
+        addMessage={addMessage}
+        changeValuePost={changeValuePost}
+        changeValueDialogsMessage={changeValueDialogsMessage}
+        addPost={addPost}
+        state={state || prop.state} />
+    </BrowserRouter>, document.getElementById('root'));
 
 }
 renderEntireTree();

@@ -17,6 +17,7 @@ const state = {
             { id: 2, message: 'How is your React?' },
             { id: 3, message: 'Thanks, very well' }
         ],
+        inputValueDialogsPage:'some text'
     },
     profilePage: {
         posts: [
@@ -33,19 +34,31 @@ const state = {
 }
 //end data
 
-export const addPost = (postMessage) => {
+//for profilePage
+export const addPost = (postText) => {
     let newPost = {
         id: 5,
         likeCount: 0,
-        message: postMessage
+        message: postText
     }
     state.profilePage.posts.push(newPost);
     renderEntireTree(state);
 }
-export const changeValue = (currentText) => {
+export const changeValuePost = (currentText) => {
     state.profilePage.inputValue = currentText;
     renderEntireTree(state);
 }
-
-
+//for dialogsPage 
+export const addMessage = (textMessage) => {
+    let newMessage = {
+        id: 3,
+        message: textMessage
+    }
+    state.dialogsPage.messages.push(newMessage);
+    renderEntireTree(state);
+}
+export const changeValueDialogsMessage = (currentText) => {
+    state.dialogsPage.inputValueDialogsPage = currentText;
+    renderEntireTree(state);
+}
 export default state;
