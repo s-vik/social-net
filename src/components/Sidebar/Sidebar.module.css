@@ -1,6 +1,5 @@
 .sidebar {
-    position: absolute;
-    bottom: 200px;
+    margin-top: 125px;
 }
 .sidebar h2 {
     text-transform: capitalize;
@@ -10,6 +9,7 @@
 }
 .sidebar .friends {
     margin-top: 30px;
+    display: flex;
 }
 .sidebar .friends img {
     position: absolute;
@@ -18,7 +18,6 @@
     bottom: 15px;
 }
 .sidebar .friends li {
-    display: inline-block;
     position: relative;
     margin: 10px;
 }

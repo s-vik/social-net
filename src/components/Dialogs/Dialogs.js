@@ -12,12 +12,11 @@ const Dialogs = (props) => {
     let newMessage = () => {
         let text = newMessageElement.current.value;
         props.addMessage(text);
-        newMessageElement.current.value = null;
+        // newMessageElement.current.value = null;
     }
     let handleTextAreaDialogs = () => {
         let text = newMessageElement.current.value;
         props.changeValueDialogsMessage(text);
-        newMessageElement.current.value = null;
     }
     return (
         <div className={s.dialogs}>

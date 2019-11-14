@@ -1,4 +1,4 @@
-import { renderEntireTree } from '../index';
+
 
 //data
 
@@ -42,6 +42,7 @@ export const addPost = (postText) => {
         message: postText
     }
     state.profilePage.posts.push(newPost);
+    state.profilePage.inputValue = '';
     renderEntireTree(state);
 }
 export const changeValuePost = (currentText) => {
@@ -55,10 +56,17 @@ export const addMessage = (textMessage) => {
         message: textMessage
     }
     state.dialogsPage.messages.push(newMessage);
+    state.dialogsPage.inputValueDialogsPage = '';
     renderEntireTree(state);
 }
 export const changeValueDialogsMessage = (currentText) => {
     state.dialogsPage.inputValueDialogsPage = currentText;
     renderEntireTree(state);
+}
+
+//redux 
+let renderEntireTree = ()=>console.log('work');
+export const subscribe = (observer) =>{
+    renderEntireTree = observer;
 }
 export default state;

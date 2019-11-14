@@ -9,7 +9,7 @@ const MyPosts = (props) => {
     let addNewPost = () => {
       let text = messageElement.current.value;
       props.addPost(text);
-      messageElement.current.value = null;
+      // messageElement.current.value = null;
     }
     let handleChangeTextArea = () => {
       let text = messageElement.current.value;
