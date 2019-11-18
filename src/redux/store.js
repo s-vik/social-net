@@ -64,6 +64,17 @@ const store = {
     changeValueDialogsMessage(currentText) {
         this._state.dialogsPage.inputValueDialogsPage = currentText;
         this._subscriber(this._state);
+    },
+    dispatch(action) {
+        if(action.type === 'ADD-POST') {
+            this.addPost(action.PostText);
+        } else if(action.type === 'CHANGE-VALUE-POST') {
+            this.changeValuePost(action.currentText);
+        } else if(action.type === 'ADD-MESSAGE') {
+            this.addMessage(action.textMessage);
+        } else if(action.type === 'CHANGE-VALUE-DIALOGS-MESSAGE') {
+            this.changeValueDialogsMessage(action.currentText);
+        }
     }
 }
 

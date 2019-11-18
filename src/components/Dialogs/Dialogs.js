@@ -9,14 +9,15 @@ const Dialogs = (props) => {
     let messagesElements = props.state.messages
         .map(message => <Message message={message.message} id={message.id} />)
         let newMessageElement = React.createRef();
+        //handle methods
     let newMessage = () => {
         let text = newMessageElement.current.value;
-        props.addMessage(text);
+        props.dispatch({type:'ADD-MESSAGE',textMessage:text});
         // newMessageElement.current.value = null;
     }
     let handleTextAreaDialogs = () => {
         let text = newMessageElement.current.value;
-        props.changeValueDialogsMessage(text);
+        props.dispatch({type:'CHANGE-VALUE-DIALOGS-MESSAGE',currentText:text});
     }
     return (
         <div className={s.dialogs}>

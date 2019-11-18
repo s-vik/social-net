@@ -6,14 +6,15 @@ const MyPosts = (props) => {
   let postsElements = props.posts
     .map(post => <Post likeCount={post.likeCount} message={post.message} />)
     let messageElement = React.createRef();
+
     let addNewPost = () => {
       let text = messageElement.current.value;
-      props.addPost(text);
+      props.dispatch({type:'ADD-POST',PostText:text});
       // messageElement.current.value = null;
     }
     let handleChangeTextArea = () => {
       let text = messageElement.current.value;
-      props.changeValuePost(text);
+      props.dispatch({type:'CHANGE-VALUE-POST',currentText:text});
     }
   return (
     <div className={s.postBlock}>
