@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
+import { actionCreateAddPost,actionCreateChangeValuePost, } from '../../../redux/store';
 
 const MyPosts = (props) => {
   let postsElements = props.posts
@@ -9,12 +10,12 @@ const MyPosts = (props) => {
 
     let addNewPost = () => {
       let text = messageElement.current.value;
-      props.dispatch({type:'ADD-POST',PostText:text});
+      props.dispatch(actionCreateAddPost(text));
       // messageElement.current.value = null;
     }
     let handleChangeTextArea = () => {
       let text = messageElement.current.value;
-      props.dispatch({type:'CHANGE-VALUE-POST',currentText:text});
+      props.dispatch(actionCreateChangeValuePost(text));
     }
   return (
     <div className={s.postBlock}>

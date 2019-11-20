@@ -1,3 +1,16 @@
+const ADD_POST = 'ADD-POST';
+const CHANGE_VALUE_POST = 'CHANGE-VALUE-POST';
+const ADD_MESSAGE = 'ADD-MESSAGE';
+const CHANGE_VALUE_DIALOGS_MESSAGE = 'CHANGE-VALUE-DIALOGS-MESSAGE';
+
+//action creator
+
+export const actionCreateAddPost = (PostText) => ({type:ADD_POST,PostText:PostText});
+export const actionCreateChangeValuePost = (currentText) => ({type:CHANGE_VALUE_POST,currentText:currentText});
+export const actionCreateAddMessage = (textMessage) => ({type:ADD_MESSAGE,textMessage:textMessage});
+export const actionCreateChangeValueDialogsMessage = (currentText) => ({type:CHANGE_VALUE_DIALOGS_MESSAGE,currentText:currentText});
+
+//data
 const store = {
     _subscriber() {
         console.log('observer is undefined');
@@ -32,13 +45,7 @@ const store = {
             { name: 'Dima', ava: 'https://download-cs.net/steam/avatars/3377.jpg' }]
         }
     },
-    getState() {
-        return this._state;
-    },
-    subscribe(observer) {
-        this._subscriber = observer;
-    },
-    addPost(postText) {
+    _addPost(postText) {
         let newPost = {
             id: 5,
             likeCount: 0,
@@ -48,11 +55,11 @@ const store = {
         this._state.profilePage.inputValue = '';
         this._subscriber(this._state);
     },
-    changeValuePost(currentText) {
+    _changeValuePost(currentText) {
         this._state.profilePage.inputValue = currentText;
         this._subscriber(this._state);
     },
-    addMessage(textMessage) {
+    _addMessage(textMessage) {
         let newMessage = {
             id: 3,
             message: textMessage
@@ -61,19 +68,26 @@ const store = {
         this._state.dialogsPage.inputValueDialogsPage = '';
         this._subscriber(this._state);
     },
-    changeValueDialogsMessage(currentText) {
+    _changeValueDialogsMessage(currentText) {
         this._state.dialogsPage.inputValueDialogsPage = currentText;
         this._subscriber(this._state);
     },
+    getState() {
+        return this._state;
+    },
+    subscribe(observer) {
+        this._subscriber = observer;
+    },
+    
     dispatch(action) {
-        if(action.type === 'ADD-POST') {
-            this.addPost(action.PostText);
-        } else if(action.type === 'CHANGE-VALUE-POST') {
-            this.changeValuePost(action.currentText);
-        } else if(action.type === 'ADD-MESSAGE') {
-            this.addMessage(action.textMessage);
-        } else if(action.type === 'CHANGE-VALUE-DIALOGS-MESSAGE') {
-            this.changeValueDialogsMessage(action.currentText);
+        if(action.type === ADD_POST) {
+            this._addPost(action.PostText);
+        } else if(action.type === CHANGE_VALUE_POST) {
+            this._changeValuePost(action.currentText);
+        } else if(action.type === ADD_MESSAGE) {
+            this._addMessage(action.textMessage);
+        } else if(action.type === CHANGE_VALUE_DIALOGS_MESSAGE) {
+            this._changeValueDialogsMessage(action.currentText);
         }
     }
 }
