@@ -1,7 +1,15 @@
 const ADD_POST = 'ADD-POST';
 const CHANGE_VALUE_POST = 'CHANGE-VALUE-POST';
 
-const postReducer = (state, action) => {
+let initialState = {
+    posts: [
+        { id: 1, likeCount: 25, message: 'Hi, how are you?' },
+        { id: 2, likeCount: 30, message: 'I\'m fine, and you?' }
+    ],
+    inputValue: ''
+}
+
+const postReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST:
             let newPost = {
