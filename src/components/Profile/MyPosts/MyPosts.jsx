@@ -1,27 +1,24 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import { actionCreateAddPost,actionCreateChangeValuePost, } from '../../../redux/store';
+import { actionCreateAddPost,actionCreateChangeValuePost, } from '../../../redux/post-reducer';
 
 const MyPosts = (props) => {
   let postsElements = props.posts
     .map(post => <Post likeCount={post.likeCount} message={post.message} />)
-    let messageElement = React.createRef();
 
     let addNewPost = () => {
-      let text = messageElement.current.value;
-      props.dispatch(actionCreateAddPost(text));
-      // messageElement.current.value = null;
+      props.dispatch(actionCreateAddPost());
     }
-    let handleChangeTextArea = () => {
-      let text = messageElement.current.value;
+    let handleChangeTextArea = (e) => {
+      let text = e.target.value;
       props.dispatch(actionCreateChangeValuePost(text));
     }
   return (
     <div className={s.postBlock}>
       <h3>My post</h3>
       <div>
-        <div><textarea onChange={handleChangeTextArea} value={props.currentInputValue} ref={messageElement}></textarea></div>
+        <div><textarea onChange={handleChangeTextArea} value={props.currentInputValue} placeholder='Enter your message' ></textarea></div>
         <div><button onClick={addNewPost}>Add post</button></div>
       </div>
       <div className={s.posts}>
