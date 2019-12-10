@@ -1,18 +1,19 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import { actionCreateAddPost,actionCreateChangeValuePost, } from '../../../redux/post-reducer';
 
 const MyPosts = (props) => {
   let postsElements = props.posts
     .map(post => <Post likeCount={post.likeCount} message={post.message} />)
 
     let addNewPost = () => {
-      props.dispatch(actionCreateAddPost());
+      props.addNewPost();
+      // props.dispatch(actionCreateAddPost());
     }
     let handleChangeTextArea = (e) => {
       let text = e.target.value;
-      props.dispatch(actionCreateChangeValuePost(text));
+      props.updateNewPostText(text);
+      // props.dispatch(actionCreateChangeValuePost(text));
     }
   return (
     <div className={s.postBlock}>
