@@ -21,20 +21,23 @@ let initialState = {
 const dialogsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_MESSAGE:
-            let newMessage = {
-                id: 3,
-                message: state.inputValueDialogsPage
+            return {
+                ...state,
+                messages: [...state.messages, {
+                    id: 3,
+                    message: state.inputValueDialogsPage
+                },],
+                inputValueDialogsPage: ''
             }
-            state.messages.push(newMessage);
-            state.inputValueDialogsPage = '';
-            return state;
         case CHANGE_VALUE_DIALOGS_MESSAGE:
-            state.inputValueDialogsPage = action.currentText;
-            return state;
+            return {
+                ...state,
+                inputValueDialogsPage: action.currentText
+            }
         default:
             return state;
     }
 }
-export const actionCreateAddMessage = () => ({type:ADD_MESSAGE});
-export const actionCreateChangeValueDialogsMessage = (currentText) => ({type:CHANGE_VALUE_DIALOGS_MESSAGE,currentText:currentText});
+export const actionCreateAddMessage = () => ({ type: ADD_MESSAGE });
+export const actionCreateChangeValueDialogsMessage = (currentText) => ({ type: CHANGE_VALUE_DIALOGS_MESSAGE, currentText: currentText });
 export default dialogsReducer;

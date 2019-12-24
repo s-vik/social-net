@@ -12,21 +12,25 @@ let initialState = {
 const postReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST:
-            let newPost = {
-                id: 5,
-                likeCount: 0,
-                message: state.inputValue
-            }
-            state.posts.push(newPost);
-            state.inputValue = '';
-            return state;
+            return {
+                ...state,
+                posts: [...state.posts,
+                {
+                    id: 5,
+                    likeCount: 0,
+                    message: state.inputValue
+                }],
+                inputValue: ''
+            };
         case CHANGE_VALUE_POST:
-            state.inputValue = action.currentText;
-            return state;
+            return {
+                ...state,
+                inputValue: action.currentText
+            };
         default:
             return state;
     }
 }
-export const actionCreateAddPost = () => ({type:ADD_POST});
-export const actionCreateChangeValuePost = (currentText) => ({type:CHANGE_VALUE_POST,currentText:currentText});
+export const actionCreateAddPost = () => ({ type: ADD_POST });
+export const actionCreateChangeValuePost = (currentText) => ({ type: CHANGE_VALUE_POST, currentText: currentText });
 export default postReducer;
