@@ -5,8 +5,8 @@ let initialState = {
     { name: 'Dima', ava: 'https://download-cs.net/steam/avatars/3377.jpg' }]
 }
 
-const sidebarReducer = (state = initialState, action) => {
+const sidebarFriendsReducer = (state = initialState, action) => {
     return state;
 }
-export default sidebarReducer;
+export default sidebarFriendsReducer;
 
