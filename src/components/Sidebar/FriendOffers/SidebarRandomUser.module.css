@@ -12,12 +12,12 @@
     display: flex;
 }
 .sidebar .friends img {
-    position: absolute;
     width: 30px;
     border-radius: 100%;
-    bottom: 15px;
 }
 .sidebar .friends li {
-    position: relative;
+    text-align: center;
     margin: 10px;
+    max-width: 60px;
+    overflow: hidden;
 }

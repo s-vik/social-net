@@ -1,7 +1,16 @@
 
 .head_prof_img {
   width: 100%;
+  height: 350px;
+  object-fit: cover;
 }
 .descriptionBlock {
+  display: flex;
   padding: 10px;
+}
+.descriptionList {
+  list-style: none;
+}
+.descriptionList li {
+  margin: 10px;
 }

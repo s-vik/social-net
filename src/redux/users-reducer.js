@@ -3,6 +3,7 @@ const UNFOLLOW = 'UNFOLLOW';
 const SETUSERS = 'SETUSERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT= 'SET_TOTAL_USERS_COUNT';
+const SET_IS_FETCHING = 'SET_IS_FETCHING';
 
 let oldStateUsers = [{
     id: 1, fullName: 'Sergey K.', photoURL: 'https://storge.pic2.me/c/1360x800/473/5748e26f38963.jpg',
@@ -24,7 +25,8 @@ let initialState = {
     users: [ ],
     totalCount: 0,
     currentPage: 1,
-    count: 8
+    count: 8,
+    isFetching: false
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -64,14 +66,20 @@ const usersReducer = (state = initialState, action) => {
                 ...state,
                 totalCount: action.totalCount
             }
+        case SET_IS_FETCHING:
+            return {
+                ...state,
+                isFetching: action.fetching
+            }
         default:
             return state;
     }
 }
 
-export const followAC = (userId) => ({ type: FOLLOW, userId });
-export const unfollowAC = (userId) => ({ type: UNFOLLOW, userId });
-export const setUsersAC = (users) => ({ type: SETUSERS, users });
-export const setCurrentPageAC = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage });
-export const setTotalUsersCountAC = (totalCount) => ({ type: SET_TOTAL_USERS_COUNT, totalCount });
+export const follow = (userId) => ({ type: FOLLOW, userId });
+export const unfollow = (userId) => ({ type: UNFOLLOW, userId });
+export const setUsers = (users) => ({ type: SETUSERS, users });
+export const setCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage });
+export const setTotalUsersCount = (totalCount) => ({ type: SET_TOTAL_USERS_COUNT, totalCount });
+export const setIsFetching = (fetching) => ({ type: SET_IS_FETCHING, fetching });
 export default usersReducer;

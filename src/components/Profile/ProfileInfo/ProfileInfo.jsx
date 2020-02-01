@@ -5,10 +5,18 @@ const ProfileInfo = (props) => {
   return (
     <div>
       <div>
-        <img className={s.head_prof_img} src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEjcyq46P-2OYlgZakIJfr4NpEWYaGCm7TKPNpBWeybjeNyb7GyQ&s' />
+        <img className={s.head_prof_img} 
+        src='https://economictimes.indiatimes.com/img/68721421/Master.jpg'
+        alt={'wal'}
+         />
       </div>
       <div className={s.descriptionBlock}>
-        avatar + description
+      <img src={props.profile.photos.large || 'https://download-cs.net/steam/avatars/3377.jpg'} alt={'ava'} />
+      <ul className={s.descriptionList}>
+        <li>Name : {props.profile.fullName}</li>
+        <li>Looking for a job : {props.profile.lookingForAJob? 'yes': 'no'}</li>
+        <li>About me : {props.profile.aboutMe}</li>
+      </ul>
       </div>
     </div>
   );
