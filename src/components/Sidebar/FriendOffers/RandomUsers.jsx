@@ -11,7 +11,7 @@ import { NavLink } from 'react-router-dom';
 const RandomUsers = (props) => {
   let RandomUsersElements = props.randomUsers.map(randomUser => {
     return (
-      <li className={s.item} onClick={()=>{props.viewRandomUser(randomUser)}}>
+      <li key={randomUser.userId} className={s.item} onClick={()=>{props.viewRandomUser(randomUser)}}>
         <NavLink to={`/profile/${randomUser.userId}`} >
           <img src={randomUser.photos.small || 'https://download-cs.net/steam/avatars/3377.jpg'} alt='ava' />
           <p>{randomUser.fullName}</p>

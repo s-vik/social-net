@@ -1,4 +1,4 @@
-import { actionCreateAddMessage, actionCreateChangeValueDialogsMessage } from '../../redux/dialogs-reducer';
+import { addMessage, changeValueDialogsMessage } from '../../redux/dialogs-reducer';
 import Dialogs from './Dialogs';
 import { connect } from 'react-redux';
 
@@ -7,12 +7,6 @@ let mapStateToProps = (state) => {
         state: state.dialogsPage
     }
 }
-let mapDispatchToProps = (dispatch) => {
-    return {
-        onChangeTextArea: (text) => { dispatch(actionCreateChangeValueDialogsMessage(text)); },
-        newMessage: () => { dispatch(actionCreateAddMessage()); }
-    }
-};
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+const DialogsContainer = connect(mapStateToProps, {changeValueDialogsMessage,addMessage})(Dialogs);
 export default DialogsContainer;

@@ -10,12 +10,12 @@ const Dialogs = (props) => {
         .map(message => <Message message={message.message} key={message.id} id={message.id} />)
     
     let newMessage = () => {
-        props.newMessage();
+        props.addMessage();
         // props.dispatch(actionCreateAddMessage());
     }
     let handleTextAreaDialogs = (e) => {
         let text = e.target.value;
-        props.onChangeTextArea(text);
+        props.changeValueDialogsMessage(text);
         // props.dispatch(actionCreateChangeValueDialogsMessage(text));
     }
     return (

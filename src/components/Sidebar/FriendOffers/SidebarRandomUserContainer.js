@@ -1,18 +1,13 @@
 import { connect } from 'react-redux';
 import RandomUsers from './RandomUsers';
 import React from 'react';
-import * as axios from 'axios';
 import { setRandomUser } from '../../../redux/sidebar-randomUser-reducer';
 import { setUserProfile } from '../../../redux/post-reducer';
+import { randomUserAPI } from '../../../api/api';
 
 class RandomUserContainer extends React.Component {
   getRandomUser = () => {
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/profile/${Math.ceil(Math.random() * 20)}`,
-        {
-          withCredentials: true
-        }
-      )
+      randomUserAPI.getRandomUser()
       .then((response) => {
         if (response.status !== 200) this.getRandomUser();
         this.props.setRandomUser(response.data);

@@ -52,9 +52,9 @@ const postReducer = (state = initialState, action) => {
             return state;
     }
 }
-export const actionCreateAddPost = () => ({ type: ADD_POST });
+export const addPost = () => ({ type: ADD_POST });
 export const setUserProfile = (profile) => ({ type: SET_USER_PROFILE, profile });
-export const actionCreateChangeValuePost = (currentText) => ({ type: CHANGE_VALUE_POST, currentText });
+export const changeValuePost = (currentText) => ({ type: CHANGE_VALUE_POST, currentText });
 export const setAuthUserId = (authUserId) => ({ type: SET_AUTH_USER_ID, authUserId });
 export const setViewMyProfile = (viewMe) => ({ type: SET_VIEW_MY_PROFILE, viewMe });
 export default postReducer;

@@ -4,16 +4,14 @@ import Post from './Post/Post';
 
 const MyPosts = (props) => {
   let postsElements = props.posts
-    .map(post => <Post likeCount={post.likeCount} message={post.message} />)
+    .map(post => <Post key={post.id} likeCount={post.likeCount} message={post.message} />);
 
     let addNewPost = () => {
-      props.addNewPost();
-      // props.dispatch(actionCreateAddPost());
+      props.addPost();
     }
     let handleChangeTextArea = (e) => {
       let text = e.target.value;
-      props.updateNewPostText(text);
-      // props.dispatch(actionCreateChangeValuePost(text));
+      props.changeValuePost(text);
     }
   return (
     <div className={s.postBlock}>
