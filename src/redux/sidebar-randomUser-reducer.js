@@ -1,8 +1,9 @@
+import { randomUserAPI } from "../api/api";
 
 const SET_RANDOM_USER = 'SET_RANDOM_USER';
 
 let initialState = {
-    randomUsers: [],
+    randomUsers: [ ]
 }
 
 const sidebarRandomUserReducer = (state = initialState, action) => {
@@ -10,13 +11,22 @@ const sidebarRandomUserReducer = (state = initialState, action) => {
         case SET_RANDOM_USER:
             return {
                 ...state,
-                randomUsers: [...state.randomUsers, action.randomUser,]
+                randomUsers: [...state.randomUsers, action.randomUser]
             }
         default:
             return state;
 
     }
 }
-export const setRandomUser = (randomUser) => ({type: SET_RANDOM_USER, randomUser});
+export const setRandomUserAccess = (randomUser) => ({type: SET_RANDOM_USER, randomUser});
 export default sidebarRandomUserReducer;
 
+export const setRandomUser = () => {
+    return (dispatch) => {
+        randomUserAPI.getRandomUser()
+        .then((response) => {
+          if (response.status !== 200) this.getRandomUser();
+          dispatch(setRandomUserAccess(response.data));
+        })
+    }
+}

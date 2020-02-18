@@ -2,10 +2,9 @@ import React from 'react';
 import style from './users.module.css';
 import userPhoto from '../../assets/images/user.png';
 import { NavLink } from 'react-router-dom';
-import { usersAPI } from '../../api/api';
 
 const Users = (props) => {
-    let pagesNumber = Math.ceil(props.totalCount / props.count);
+    let pagesNumber = Math.ceil(props.totalCount / props.pageSize);
     let pages = [];
     for (let i = 1; i <= pagesNumber; i++) {
         pages.push(i);
@@ -30,20 +29,11 @@ const Users = (props) => {
                                 <img className={style.ava} src={user.photos.small != null ? user.photos.small : userPhoto} alt='ava' />
                             </NavLink>
                             <div> {user.followed
-                                ? <button onClick={() => {
-                                    usersAPI.unFollow(user.id).then((response) => {
-                                        if (response.data.resultCode === 0) {
-                                            props.unFollow(user.id)
-                                        }
-                                    })
-
+                                ? <button disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {
+                                   props.unFollow(user.id);
                                 }}>unFollow</button>
-                                : <button onClick={() => {
-                                    usersAPI.follow(user.id).then((response) => {
-                                        if (response.data.resultCode === 0) {
-                                            props.follow(user.id)
-                                        }
-                                    })
+                                : <button disabled={props.followingInProgress.some(id => id === user.id)} onClick={() => {
+                                    props.follow(user.id);
                                 }}>Follow</button>
                             }</div>
                         </div>

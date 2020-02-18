@@ -5,19 +5,17 @@ import Message from './Message/Message';
 
 const Dialogs = (props) => {
     let dialogsElements = props.state.dialogs
-        .map(dialog => <DialogsItem name={dialog.name} key={dialog.id} id={dialog.id} ava={dialog.ava} />)
+        .map(dialog => <DialogsItem name={dialog.name} key={dialog.id} id={dialog.id} ava={dialog.ava} />);
     let messagesElements = props.state.messages
-        .map(message => <Message message={message.message} key={message.id} id={message.id} />)
-    
+        .map(message => <Message message={message.message} key={message.id} id={message.id} />);
     let newMessage = () => {
         props.addMessage();
-        // props.dispatch(actionCreateAddMessage());
     }
     let handleTextAreaDialogs = (e) => {
         let text = e.target.value;
         props.changeValueDialogsMessage(text);
-        // props.dispatch(actionCreateChangeValueDialogsMessage(text));
     }
+   
     return (
         <div className={s.dialogs}>
             <div className={s.dialogs_items}>

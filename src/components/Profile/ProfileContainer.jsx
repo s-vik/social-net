@@ -5,22 +5,16 @@ import { setUserProfile, setAuthUserId } from '../../redux/post-reducer';
 import { withRouter } from 'react-router-dom';
 import Preloader from '../Preloader/Preloader';
 import { setViewMyProfile } from './../../redux/post-reducer';
-import { profileAPI } from '../../api/api';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
     let userId = this.props.match.params.userId || this.props.authUserId;
-    if (userId) {
-      profileAPI.getUserProfile(userId).then((response) => {
-        this.props.setUserProfile(response.data);
-      })
-    } 
+    this.props.setUserProfile(userId);
   }
   render() {
-    if (!this.props.profile) {
-      this.props.setViewMyProfile(true);
-      return <Preloader />
-    }
+    if (!this.props.profile) return <Preloader />
     return (
       <Profile {...this.props} />
     );
@@ -34,8 +28,8 @@ let mapStateToProps = (state) => {
   }
 }
 
-
-
-export default connect(mapStateToProps,
-  { setAuthUserId, setUserProfile, setViewMyProfile }
-)(withRouter(ProfileContainer));
+export default compose (
+  connect(mapStateToProps,{ setAuthUserId, setUserProfile, setViewMyProfile }),
+  withRouter,
+  withAuthRedirect
+)(ProfileContainer);
