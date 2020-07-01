@@ -3,18 +3,14 @@ import RandomUsers from './RandomUsers';
 import React from 'react';
 import { setRandomUser } from '../../../redux/sidebar-randomUser-reducer';
 import { setUserProfile } from '../../../redux/post-reducer';
+import { setStatus } from './../../../redux/post-reducer';
 
 class RandomUserContainer extends React.Component {
-  getRandomUser = () => {
-      this.props.setRandomUser();
-  }
-  viewRandomUser = (user) => {
-    this.props.setUserProfile(user);
-  }
+  
   render() {
-    if (this.props.randomUsers.length < 3) this.getRandomUser();
+    if (this.props.randomUsers.length < 3)  this.props.setRandomUser();
     return (
-      <RandomUsers {...this.props} viewRandomUser={this.viewRandomUser} />
+      <RandomUsers {...this.props} setUserProfile={this.props.setUserProfile} setStatus={this.props.setStatus} />
     )
   }
 }
@@ -28,7 +24,8 @@ const mapStateToProps = (state) => {
 const SidebarRandomUserContainer = connect(mapStateToProps,
   {
     setRandomUser,
-    setUserProfile
+    setUserProfile,
+    setStatus
   })(RandomUserContainer);
 
 

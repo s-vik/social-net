@@ -1,25 +1,37 @@
 import React from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
+import { Field, reduxForm } from 'redux-form';
+import { required, maxLength, minLength } from '../../../helpers/validators/validators';
+import { renderField } from '../../../hoc/formControls/FormControls';
+
+const renderFieldTextarea = renderField('textarea');
+
+
+const maxLength20 = maxLength(20);
+const minLength5 = minLength(5);
+
+let PostForm = (props) => {
+  return (
+    <form onSubmit={props.handleSubmit}>
+      <div><Field validate={[required, maxLength20, minLength5]} component={renderFieldTextarea} placeholder='Enter your message' name='newPost'></Field></div>
+      <div><button >Add post</button></div>
+    </form>
+  )
+}
+
+PostForm = reduxForm({ form: 'post' })(PostForm);
 
 const MyPosts = (props) => {
   let postsElements = props.posts
     .map(post => <Post key={post.id} likeCount={post.likeCount} message={post.message} />);
-
-    let addNewPost = () => {
-      props.addPost();
-    }
-    let handleChangeTextArea = (e) => {
-      let text = e.target.value;
-      props.changeValuePost(text);
-    }
+  let onSubmit = (formData) => {
+    props.addPost(formData.newPost);
+  }
   return (
     <div className={s.postBlock}>
       <h3>My post</h3>
-      <div>
-        <div><textarea onChange={handleChangeTextArea} value={props.currentInputValue} placeholder='Enter your message' ></textarea></div>
-        <div><button onClick={addNewPost}>Add post</button></div>
-      </div>
+      <PostForm onSubmit={onSubmit} />
       <div className={s.posts}>
         {postsElements}
       </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './ProfileInfo.module.css';
+import ProfileStatus from './ProfileStatus';
 
 const ProfileInfo = (props) => {
   return (
@@ -16,6 +17,7 @@ const ProfileInfo = (props) => {
         <li>Name : {props.profile.fullName}</li>
         <li>Looking for a job : {props.profile.lookingForAJob? 'yes': 'no'}</li>
         <li>About me : {props.profile.aboutMe}</li>
+        <ProfileStatus {...props} updateStatus={props.updateStatus} status={props.status} />
       </ul>
       </div>
     </div>

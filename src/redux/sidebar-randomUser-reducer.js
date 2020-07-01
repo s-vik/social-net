@@ -25,8 +25,7 @@ export const setRandomUser = () => {
     return (dispatch) => {
         randomUserAPI.getRandomUser()
         .then((response) => {
-          if (response.status !== 200) this.getRandomUser();
           dispatch(setRandomUserAccess(response.data));
-        })
+        }).catch(error => console.log(error.message));
     }
 }

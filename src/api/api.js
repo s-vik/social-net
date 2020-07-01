@@ -10,7 +10,7 @@ const instance = axios.create({
 
 export const usersAPI = {
     getUsers(currentPage, pageSize) {
-        return instance.get(`users?page=${currentPage}&&count=${pageSize}`)
+        return instance.get(`users?page=${currentPage}&count=${pageSize}`)
             .then((response) => response.data)
     },
     unFollow(userId) {
@@ -23,19 +23,33 @@ export const usersAPI = {
 
 export const profileAPI = {
     getUserProfile(userId) {
-        debugger
         return instance.get(`profile/${userId}`)
+    },
+    getStatus(userId) {
+        return instance.get(`profile/status/${userId}`)
+    },
+    updateStatus(status) {
+        return instance.put('profile/status',{status})
     }
 }
 
 export const authAPI = {
     getAuthUser() {
         return instance.get(`auth/me`)
+    },
+    login(email,password,rememberMe) {
+        return instance.post('auth/login',{
+            email,password,rememberMe
+        }
+        )
+    },
+    logout() {
+        return instance.delete('auth/login')
     }
 }
 export const randomUserAPI = {
     getRandomUser() {
         return instance
-            .get(`profile/${Math.ceil(Math.random() * 20)}`)
+            .get(`profile/${Math.ceil(Math.random() * 10)}`)
     }
 }

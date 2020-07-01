@@ -1,0 +1,16 @@
+.error {
+    border: 2px solid red;
+}
+.forControl {
+    position: relative;
+}
+.errorMessage {
+    color: red;
+}
+
+.loginError {
+    color: red;
+    border: 1px solid red;
+    display: inline-block;
+    padding: 5px 10px;
+}

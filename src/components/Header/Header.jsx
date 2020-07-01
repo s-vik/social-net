@@ -9,7 +9,7 @@ const Header = (props) => {
         src='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/NASA_logo.svg/1200px-NASA_logo.svg.png'
         alt='logo' />
       <div className={s.login}>
-        {props.authUserData.isAuth ? <NavLink to='#'>{'Welcome, ' + props.authUserData.login}</NavLink> :
+        {props.authUserData.isAuth ? <div><NavLink to='#'>{'Welcome, ' + props.authUserData.login}</NavLink> <button onClick = {props.logout}>Log out</button></div> :
           <NavLink to='login'>login</NavLink>}
       </div>
     </header>

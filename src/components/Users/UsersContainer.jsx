@@ -45,19 +45,18 @@ const mapStateToProps = (state) => {
     }
 }
 
-// compose(
-//     connect(mapStateToProps, {
-//         follow,
-//         unFollow,
-//         setCurrentPage,
-//         getUsers
-//     }),
-//     withAuthRedirect
-// )(UsersContainer);
+export default compose(
+    connect(mapStateToProps, {
+        follow,
+        unFollow,
+        setCurrentPage,
+        getUsers
+    })
+)(UsersContainer);
 
-export default connect(mapStateToProps, {
-    follow,
-    unFollow,
-    setCurrentPage,
-    getUsers
-})(UsersContainer);
+// export default connect(mapStateToProps, {
+//     follow,
+//     unFollow,
+//     setCurrentPage,
+//     getUsers
+// })(UsersContainer);

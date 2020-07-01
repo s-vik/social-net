@@ -1,20 +1,18 @@
-import { profileAPI, authAPI } from "../api/api";
+import { profileAPI } from "../api/api";
 
 const ADD_POST = 'ADD-POST';
-const CHANGE_VALUE_POST = 'CHANGE-VALUE-POST';
+const CHANGE_VALUE_STATUS = 'CHANGE_VALUE_STATUS';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const SET_AUTH_USER_ID = 'SET_AUTH_USER_ID';
-const SET_VIEW_MY_PROFILE = 'SET_VIEW_MY_PROFILE';
+const SET_STATUS = 'SET_STATUS';
 
 let initialState = {
     posts: [
         { id: 1, likeCount: 25, message: 'Hi, how are you?' },
         { id: 2, likeCount: 30, message: 'I\'m fine, and you?' }
     ],
-    inputValue: '',
     profile: null,
-    authUserId: 5437,
-    viewMe: false
+    status: '',
+    isFetching: false
 }
 
 const postReducer = (state = initialState, action) => {
@@ -26,39 +24,30 @@ const postReducer = (state = initialState, action) => {
                 {
                     id: 5,
                     likeCount: 0,
-                    message: state.inputValue
+                    message: action.inputValue
                 }],
-                inputValue: ''
-            };
-        case CHANGE_VALUE_POST:
-            return {
-                ...state,
-                inputValue: action.currentText
+                
             };
         case SET_USER_PROFILE:
             return {
                 ...state,
-                profile: action.profile
+                profile: action.profile,
+                isFetching: true
             };
-        case SET_AUTH_USER_ID:
+        case SET_STATUS:
             return {
                 ...state,
-                authUserId: action.authUserId
-            };
-        case SET_VIEW_MY_PROFILE:
-            return {
-                ...state,
-                viewMe: action.viewMe
+                status: action.status
             }
         default:
             return state;
     }
 }
-export const addPost = () => ({ type: ADD_POST });
+export const addPost = (inputValue) => ({ type: ADD_POST, inputValue });
 export const setUserProfileAccess = (profile) => ({ type: SET_USER_PROFILE, profile });
-export const changeValuePost = (currentText) => ({ type: CHANGE_VALUE_POST, currentText });
-export const setAuthUserId = (authUserId) => ({ type: SET_AUTH_USER_ID, authUserId });
-export const setViewMyProfile = (viewMe) => ({ type: SET_VIEW_MY_PROFILE, viewMe });
+export const setStatusAccess = (status) => ({ type: SET_STATUS, status });
+
+
 export default postReducer;
 
 export const setUserProfile = (userId) => {
@@ -69,3 +58,20 @@ export const setUserProfile = (userId) => {
     }
 }
 
+export const setStatus = (userId) => {
+    return (dispatch) => {
+        profileAPI.getStatus(userId).then((response) => {
+            dispatch(setStatusAccess(response.data));
+        })
+    }
+}
+
+export const updateStatus = (status) => {
+    return (dispatch) => {
+        profileAPI.updateStatus(status).then((response) => {
+            if (response.data.resultCode === 0) {
+                dispatch(setStatusAccess(status));
+            }
+        })
+    }
+}

@@ -1,5 +1,4 @@
 const ADD_MESSAGE = 'ADD-MESSAGE';
-const CHANGE_VALUE_DIALOGS_MESSAGE = 'CHANGE-VALUE-DIALOGS-MESSAGE';
 
 let initialState = {
     dialogs: [
@@ -14,8 +13,7 @@ let initialState = {
         { id: 1, message: 'Hi' },
         { id: 2, message: 'How is your React?' },
         { id: 3, message: 'Thanks, very well' }
-    ],
-    inputValueDialogsPage: ''
+    ]
 }
 
 const dialogsReducer = (state = initialState, action) => {
@@ -25,19 +23,12 @@ const dialogsReducer = (state = initialState, action) => {
                 ...state,
                 messages: [...state.messages, {
                     id: 3,
-                    message: state.inputValueDialogsPage
-                },],
-                inputValueDialogsPage: ''
-            }
-        case CHANGE_VALUE_DIALOGS_MESSAGE:
-            return {
-                ...state,
-                inputValueDialogsPage: action.currentText
+                    message: action.newMessageBody
+                },]
             }
         default:
             return state;
     }
 }
-export const addMessage = () => ({ type: ADD_MESSAGE });
-export const changeValueDialogsMessage = (currentText) => ({ type: CHANGE_VALUE_DIALOGS_MESSAGE, currentText: currentText });
+export const addMessage = (newMessageBody) => ({ type: ADD_MESSAGE, newMessageBody });
 export default dialogsReducer;

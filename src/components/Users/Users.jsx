@@ -12,13 +12,13 @@ const Users = (props) => {
     return (
         <div className={style.container}>
             <div>
-                {pages.map(p => {
+                {pages.map((p,i) => {
                     if (p > 15) {
                         return false
                     }
                     return <span
                         onClick={() => { props.onPageChanged(p) }}
-                        className={props.currentPage === p && style.selectedPage}>{p}</span>
+                        className={props.currentPage === p?style.selectedPage:null} key={i}>{p}</span>
                 })}
             </div>
             {props.users.map((user) => {
