@@ -28,12 +28,3 @@
     justify-content: flex-end;
 }
 
-.selectedPage {
-    font-weight: bold;
-}
-.pagination {
-    margin-right: 10px;
-}
-.cursor {
-    cursor: pointer;
-}

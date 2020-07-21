@@ -1,5 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import postReducer from "./post-reducer";
+import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import sidebarRandomUserReducer from "./sidebar-randomUser-reducer";
 import usersReducer from './users-reducer';
@@ -10,7 +10,7 @@ import appReducer from "./app-reducer";
 
 
 let reducersPack = combineReducers({
-    profilePage: postReducer,
+    profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     sidebarRandomUser: sidebarRandomUserReducer,
     usersPage: usersReducer,

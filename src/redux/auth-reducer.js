@@ -39,7 +39,7 @@ export const setAuthUserDataAccess = (id, email, login, isAuth) => ({ type: SET_
 export const setAuthUserError = (error) => ({ type: SET_AUTH_USER_ERROR, error });
 export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching })
 export default authReducer;
-
+ 
 
 export const setAuthUserData = () => {
     return (dispatch) => {

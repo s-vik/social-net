@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import Nav from './components/Nav/Nav';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter, BrowserRouter } from 'react-router-dom';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
@@ -10,10 +10,11 @@ import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
-import { connect } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import Preloader from './components/Preloader/Preloader';
 import { compose } from 'redux';
 import { appInitialization } from './redux/app-reducer';
+import store from './redux/redux-store';
 
 const App = (props) => {
   return (
@@ -36,25 +37,29 @@ const App = (props) => {
   );
 }
 
-class AppContainer extends React.Component {
-  componentDidMount() {
-      this.props.appInitialization();
-  }
-  render() {
-    if (!this.props.initialized) return <Preloader />
-    return (
-      <App />
-    )
-  }
+let AppContainer =(props) => {
+  useEffect(()=>{props.appInitialization()},[props.initialized])
+    if (!props.initialized) return <Preloader />
+    return <App />
 }
-
 const mapStateToProps = (state) => {
   return {
     initialized: state.app.initialized
   }
 }
 
-export default compose(
+AppContainer = compose(
   withRouter,
   connect(mapStateToProps, { appInitialization }),
 )(AppContainer);
+
+const MainAppComponent = (props) => {
+  return(
+    <BrowserRouter>
+        <Provider store={store}>
+            <AppContainer />
+        </Provider>
+    </BrowserRouter>
+  );
+}
+export default MainAppComponent;

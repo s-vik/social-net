@@ -1,9 +1,9 @@
 import { profileAPI } from "../api/api";
 
 const ADD_POST = 'ADD-POST';
-const CHANGE_VALUE_STATUS = 'CHANGE_VALUE_STATUS';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
+const SET_IS_FETCHING = 'SET_IS_FETCHING';
 
 let initialState = {
     posts: [
@@ -26,14 +26,18 @@ const postReducer = (state = initialState, action) => {
                     likeCount: 0,
                     message: action.inputValue
                 }],
-                
+
             };
         case SET_USER_PROFILE:
             return {
                 ...state,
-                profile: action.profile,
-                isFetching: true
+                profile: action.profile
             };
+        case SET_IS_FETCHING:
+            return {
+                ...state,
+                isFetching: action.isFetching
+            }
         case SET_STATUS:
             return {
                 ...state,
@@ -46,14 +50,20 @@ const postReducer = (state = initialState, action) => {
 export const addPost = (inputValue) => ({ type: ADD_POST, inputValue });
 export const setUserProfileAccess = (profile) => ({ type: SET_USER_PROFILE, profile });
 export const setStatusAccess = (status) => ({ type: SET_STATUS, status });
+export const setIsFetching = (isFetching) => ({ type: SET_IS_FETCHING, isFetching });
 
 
 export default postReducer;
 
 export const setUserProfile = (userId) => {
     return (dispatch) => {
+        dispatch(setUserProfileAccess(null));
+        dispatch(setIsFetching(true));
         profileAPI.getUserProfile(userId).then((response) => {
-            dispatch(setUserProfileAccess(response.data));
+            if (response.statusText === 'OK') {
+                dispatch(setUserProfileAccess(response.data));
+                dispatch(setIsFetching(false))
+            }
         })
     }
 }

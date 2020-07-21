@@ -50,6 +50,6 @@ export const authAPI = {
 export const randomUserAPI = {
     getRandomUser() {
         return instance
-            .get(`profile/${Math.ceil(Math.random() * 10)}`)
+            .get(`profile/${~~(Math.random() * 100)}`).catch(e=>this.getRandomUser())
     }
 }

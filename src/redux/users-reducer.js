@@ -1,4 +1,5 @@
 import { usersAPI } from "../api/api";
+import { updateObjectInArray } from "../helpers/object_helper/reducers_helper";
 
 const FOLLOW = 'FOLLOW';
 const UN_FOLLOW = 'UN_FOLLOW';
@@ -9,12 +10,12 @@ const SET_IS_FETCHING = 'SET_IS_FETCHING';
 const TOGGLE_FOLLOWING_IN_PROGRESS = 'TOGGLE_FOLLOWING_IN_PROGRESS';
 
 let initialState = {
-    users: [ ],
+    users: [],
     totalCount: 0,
     currentPage: 1,
     pageSize: 8,
     isFetching: false,
-    followingInProgress: [ ]
+    followingInProgress: []
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -22,22 +23,12 @@ const usersReducer = (state = initialState, action) => {
         case FOLLOW:
             return {
                 ...state,
-                users: state.users.map((user) => {
-                    if (user.id === action.userId) {
-                        return { ...user, followed: true }
-                    }
-                    return user;
-                })
+                users: updateObjectInArray(state.users, 'id', action.userId, { followed: true })
             }
         case UN_FOLLOW:
             return {
                 ...state,
-                users: state.users.map((user) => {
-                    if (user.id === action.userId) {
-                        return { ...user, followed: false }
-                    }
-                    return user;
-                })
+                users: updateObjectInArray(state.users, 'id', action.userId, { followed: false })
             }
         case SET_USERS:
             return {
@@ -57,7 +48,7 @@ const usersReducer = (state = initialState, action) => {
         case SET_IS_FETCHING:
             return {
                 ...state,
-                isFetching: action.fetching
+                isFetching: action.isFetching
             }
         case TOGGLE_FOLLOWING_IN_PROGRESS:
             return {
@@ -79,37 +70,36 @@ export const setTotalUsersCount = (totalCount) => ({ type: SET_TOTAL_USERS_COUNT
 export const setIsFetching = (isFetching) => ({ type: SET_IS_FETCHING, isFetching });
 export const toggleFollowingInProgress = (isFetching, id) => ({ type: TOGGLE_FOLLOWING_IN_PROGRESS, isFetching, id });
 
+
+const toggleFollowUnFollow = async (dispatch, apiMethod, action, userId) => {
+    dispatch(toggleFollowingInProgress(true, userId));
+    let response = await apiMethod(userId);
+    if (response.data.resultCode === 0) {
+        dispatch(action(userId));
+    }
+    dispatch(toggleFollowingInProgress(false, userId));
+
+}
+
 export const unFollow = (userId) => {
     return (dispatch) => {
-        dispatch(toggleFollowingInProgress(true, userId));
-        usersAPI.unFollow(userId).then((response) => {
-            if (response.data.resultCode === 0) {
-                dispatch(unFollowAccess(userId));
-            }
-            dispatch(toggleFollowingInProgress(false, userId));
-        });
+        toggleFollowUnFollow(dispatch, usersAPI.unFollow, unFollowAccess, userId);
     }
 }
 export const follow = (userId) => {
     return (dispatch) => {
-        dispatch(toggleFollowingInProgress(true, userId));
-        usersAPI.follow(userId).then((response) => {
-            if (response.data.resultCode === 0) {
-                dispatch(followAccess(userId));
-            }
-            dispatch(toggleFollowingInProgress(false, userId));
-        });
+        toggleFollowUnFollow(dispatch, usersAPI.follow, followAccess, userId);
     }
 }
 export const getUsers = (currentPage, pageSize) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(setIsFetching(true));
-        usersAPI.getUsers(currentPage, pageSize)
-            .then((data) => {
-                dispatch(setUsers(data.items));
-                dispatch(setTotalUsersCount(data.totalCount));
-                dispatch(setIsFetching(false));
-            })
+        let response = await usersAPI.getUsers(currentPage, pageSize);
+        if (!response.error) {
+            dispatch(setUsers(response.items));
+            dispatch(setTotalUsersCount(response.totalCount));
+            dispatch(setIsFetching(false));
+        }
     }
 }
 

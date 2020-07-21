@@ -1,48 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 
-class ProfileStatus extends React.Component {
-    state = {
-        editMode: false,
-        localStatus: this.props.status
+const ProfileStatus = (props) => {
+    let [editMode, setEditMode] = useState(false);
+    let [status, setStatus] = useState(props.status);
 
+    useEffect(()=>{setStatus(props.status)},[props.status]);
+
+    const activateEditMode = () => {
+        if (props.authUserId === props.profile.userId) setEditMode(true);
     }
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.status !== this.props.status) {
-            this.setState({ localStatus: this.props.status });
-        }
-
+    const deactivateEditMode = () => {
+        setEditMode(false);
+        props.updateStatus(status);
     }
-    toggleEditMode = () => {
-        if (this.props.authUserId === this.props.profile.userId) {
-            this.setState({
-                editMode: !this.state.editMode
-            });
-            if (this.state.editMode) {
-                this.props.updateStatus(this.state.localStatus);
-            }
-        }
+    const updateStatus = (e) => {
+        setStatus( e.target.value );
     }
-    updateStatusTextHandler = (e) => {
-        this.setState({ localStatus: e.target.value })
-    }
-
-    render() {
         return (
             <>
-                {!this.state.editMode &&
+                {!editMode &&
                     <li>
-                        Status :  <span onDoubleClick={this.toggleEditMode}>{this.props.status || '...'} </span>
+                        Status :  <span onDoubleClick={activateEditMode}>{props.status || '...'} </span>
                     </li>
                 }
-                {this.state.editMode &&
+                {editMode &&
                     <li>
-                        <input autoFocus onChange={this.updateStatusTextHandler} onBlur={this.toggleEditMode} value={this.state.localStatus} />
+                        <input autoFocus onChange={updateStatus} onBlur={deactivateEditMode} value={status} />
                     </li>
                 }
             </>
         )
     }
-}
 
 export default ProfileStatus;

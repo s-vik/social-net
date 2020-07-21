@@ -1,0 +1,17 @@
+.selectedPage {
+    font-weight: bold;
+}
+.pagination {
+    margin: 10px 5px;
+}
+.list li:hover {
+    cursor: pointer;
+}
+.list {
+    display: flex;
+    justify-content: center;
+}
+.list li {
+    font-size: 18px;
+    list-style: none;
+}

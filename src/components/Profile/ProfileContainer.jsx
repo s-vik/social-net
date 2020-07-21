@@ -1,41 +1,41 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Profile from './Profile';
 import { connect } from 'react-redux';
-import { setUserProfile } from '../../redux/post-reducer';
+import { setUserProfile } from '../../redux/profile-reducer';
 import { withRouter } from 'react-router-dom';
 import Preloader from '../Preloader/Preloader';
-import { setStatus, updateStatus } from './../../redux/post-reducer';
+import { setStatus, updateStatus } from '../../redux/profile-reducer';
 import { compose } from 'redux';
-class ProfileContainer extends React.Component {
-  componentDidMount() {
-    if (!this.redirectToLogin()) {
-      this.props.setUserProfile(this.getUserId());
-      this.props.setStatus(this.getUserId());
-    }
-  }
-  componentDidUpdate() {
-    this.redirectToLogin();
-  }
-  getUserId = () => (this.props.match.params.userId || this.props.authUserId);
-  redirectToLogin = () => {
-    if (!this.getUserId()) {
-      this.props.history.push('/login');
-    } else {
-      return false;
-    }
-  }
-  render() {
+import { extractProfile, extractAuthUserId, extractStatus, extractIsFetching } from '../../redux/profileSelectors';
 
-    if (!this.props.isFetching) return <Preloader />
-    return (<Profile {...this.props} />);
-  }
+
+const ProfileContainer = (props) => {
+  const userId = props.match.params.userId || props.authUserId;
+  useEffect(() => {
+    if (userId) {
+      props.setUserProfile(userId);
+      props.setStatus(userId);
+    }
+    else {
+      props.history.push('/login');
+    }
+  }, [userId])
+
+  if (props.isFetching) return <Preloader />
+  else
+    if (props.profile) {
+      return <Profile {...props} />
+    }
+  return null
 }
+
+
 let mapStateToProps = (state) => {
   return {
-    profile: state.profilePage.profile,
-    authUserId: state.auth.id,
-    status: state.profilePage.status,
-    isFetching: state.profilePage.isFetching
+    profile: extractProfile(state),
+    authUserId: extractAuthUserId(state),
+    status: extractStatus(state),
+    isFetching: extractIsFetching(state)
   }
 }
 export default compose(

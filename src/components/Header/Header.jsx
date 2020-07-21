@@ -10,7 +10,7 @@ const Header = (props) => {
         alt='logo' />
       <div className={s.login}>
         {props.authUserData.isAuth ? <div><NavLink to='#'>{'Welcome, ' + props.authUserData.login}</NavLink> <button onClick = {props.logout}>Log out</button></div> :
-          <NavLink to='login'>login</NavLink>}
+          <NavLink to='/login'>login</NavLink>}
       </div>
     </header>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
     follow,
@@ -9,34 +9,38 @@ import {
 import Users from './Users';
 import Preloader from '../Preloader/Preloader';
 import { compose } from 'redux';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { extractUsers } from '../../redux/userSelectors';
 
-class UsersContainer extends React.Component {
-    componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+
+const UsersContainer = (props) => {
+    useEffect(()=>{
+        props.getUsers(props.currentPage, props.pageSize);
+    },[props.currentPage, props.pageSize]);
+
+    const onPageChanged = (currentPage) => {
+        props.setCurrentPage(currentPage);
+        props.getUsers(currentPage, props.pageSize);
     }
-    onPageChanged = (currentPage) => {
-        this.props.setCurrentPage(currentPage);
-        this.props.getUsers(currentPage, this.props.pageSize);
-    }
-    render() {
-        return <>
-            {this.props.isFetching ? <Preloader /> : null}
-            <Users totalCount={this.props.totalCount}
-                pageSize={this.props.pageSize}
-                onPageChanged={this.onPageChanged}
-                currentPage={this.props.currentPage}
-                users={this.props.users}
-                unFollow={this.props.unFollow}
-                follow={this.props.follow}
-                followingInProgress={this.props.followingInProgress}
+
+    return (
+        <>
+            {props.isFetching ? <Preloader /> : null}
+            <Users totalCount={props.totalCount}
+                pageSize={props.pageSize}
+                onPageChanged={onPageChanged}
+                currentPage={props.currentPage}
+                users={props.users}
+                unFollow={props.unFollow}
+                follow={props.follow}
+                followingInProgress={props.followingInProgress}
             />
         </>
-    }
+    );
 }
+
 const mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
+        users: extractUsers(state),
         totalCount: state.usersPage.totalCount,
         currentPage: state.usersPage.currentPage,
         pageSize: state.usersPage.pageSize,
@@ -53,10 +57,3 @@ export default compose(
         getUsers
     })
 )(UsersContainer);
-
-// export default connect(mapStateToProps, {
-//     follow,
-//     unFollow,
-//     setCurrentPage,
-//     getUsers
-// })(UsersContainer);
