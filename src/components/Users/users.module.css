@@ -28,3 +28,20 @@
     justify-content: flex-end;
 }
 
+.selectedPage {
+    font-weight: bold;
+}
+.pagination {
+    margin: 10px 5px;
+}
+.pagination li:hover {
+    cursor: pointer;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+.pagination li {
+    font-size: 18px;
+    list-style: none;
+}

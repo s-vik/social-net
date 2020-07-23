@@ -1,11 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import {
-    follow,
-    unFollow,
-    setCurrentPage,
-    getUsers
-} from './../../redux/users-reducer';
+import { follow, unFollow, setCurrentPage, getUsers } from './../../redux/users-reducer';
 import Users from './Users';
 import Preloader from '../Preloader/Preloader';
 import { compose } from 'redux';
@@ -13,15 +8,14 @@ import { extractUsers } from '../../redux/userSelectors';
 
 
 const UsersContainer = (props) => {
-    useEffect(()=>{
-        props.getUsers(props.currentPage, props.pageSize);
-    },[props.currentPage, props.pageSize]);
+    useEffect(() => {
+            props.getUsers(props.currentPage, props.pageSize);
+    }, [props.currentPage, props.pageSize]);
 
     const onPageChanged = (currentPage) => {
         props.setCurrentPage(currentPage);
         props.getUsers(currentPage, props.pageSize);
     }
-
     return (
         <>
             {props.isFetching ? <Preloader /> : null}
