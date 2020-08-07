@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
 import { Field, reduxForm } from 'redux-form';
@@ -13,9 +13,9 @@ const minLength5 = minLength(5);
 
 let PostForm = (props) => {
   return (
-    <form onSubmit={props.handleSubmit}>
-      <div><Field validate={[required, maxLength20, minLength5]} component={renderFieldTextarea} placeholder='Enter your message' name='newPost'></Field></div>
-      <div><button >Add post</button></div>
+    <form className={s.postForm} onSubmit={props.handleSubmit}>
+      <div><Field validate={[required, maxLength20, minLength5]} component={renderFieldTextarea} placeholder='Enter your post' name='newPost'></Field></div>
+      <div  className={s.postButtonContainer}><button className={s.postButton} >Add post</button></div>
     </form>
   )
 }

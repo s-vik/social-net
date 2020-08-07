@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import Nav from './components/Nav/Nav';
-import { Route, Switch, withRouter, BrowserRouter } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
@@ -10,17 +9,18 @@ import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
-import { connect, Provider } from 'react-redux';
+import { connect } from 'react-redux';
 import Preloader from './components/Preloader/Preloader';
 import { compose } from 'redux';
 import { appInitialization } from './redux/app-reducer';
-import store from './redux/redux-store';
+import Sidebar from './components/Sidebar/Sidebar';
+import Footer from './components/Footer/Footer';
 
 const App = (props) => {
   return (
     <div className="App">
       <HeaderContainer />
-      <Nav />
+      <Sidebar />
       <div className='App_content_wrapper'>
         <Switch>
           <Route path='/dialogs' render={() => <DialogsContainer />} />
@@ -33,11 +33,12 @@ const App = (props) => {
           <Route path='/settings' component={Settings} />
         </Switch>
       </div>
+      <Footer />
     </div>
   );
 }
 
-let AppContainer =(props) => {
+const AppContainer =(props) => {
   useEffect(()=>{props.appInitialization()},[props.initialized])
     if (!props.initialized) return <Preloader />
     return <App />
@@ -48,18 +49,8 @@ const mapStateToProps = (state) => {
   }
 }
 
-AppContainer = compose(
+export default compose(
   withRouter,
   connect(mapStateToProps, { appInitialization }),
 )(AppContainer);
 
-const MainAppComponent = (props) => {
-  return(
-    <BrowserRouter>
-        <Provider store={store}>
-            <AppContainer />
-        </Provider>
-    </BrowserRouter>
-  );
-}
-export default MainAppComponent;

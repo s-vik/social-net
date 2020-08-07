@@ -1,7 +1,6 @@
 import React from 'react';
 import s from './Nav.module.css';
 import { NavLink } from 'react-router-dom';
-import SidebarRandomUserContainer from './../Sidebar/FriendOffers/SidebarRandomUserContainer';
 
 const Nav = (props) => {
   return (
@@ -14,7 +13,6 @@ const Nav = (props) => {
         <li className={s.item}><NavLink to='/music' activeClassName={s.active}>Music</NavLink></li>
         <li className={s.item}><NavLink to='/settings' activeClassName={s.active}>Settings</NavLink></li>
       </ul>
-      <SidebarRandomUserContainer />
     </nav>
   );
 }

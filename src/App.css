@@ -3,19 +3,29 @@
   padding: 0;
   box-sizing: border-box;
 }
+#root {
+  display: flex;
+  background: linear-gradient(white, #D3D8E8);
+}
 .App {
   display: grid;
   grid-template-areas: 
   "head head"
-  "nav cont";
-  grid-template-rows: 150px 1fr;
+  "sidebar cont"
+  "footer footer";
+  grid-template-rows: 150px 1fr 150px;
   grid-template-columns: 2fr 10fr;
   grid-gap: 10px;
-  width: 1200px;
   margin: 0 auto;
+  padding: 0 5px;
+  width: 1600px;
+  max-width: 1920px;
 }
 
 .App_content_wrapper {
   grid-area: cont;
-  background-color: rgb(132, 133, 181);
+  background: linear-gradient(90deg,rgb(23, 59, 26),rgb(109, 96, 230));
+  min-height: calc(100vh - 150px);
+  padding: 20px;
+  color: whitesmoke;
 }

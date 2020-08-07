@@ -1,8 +1,8 @@
 .selectedPage {
-    font-weight: bold;
+    color: lightslategray;
 }
 .pagination {
-    margin: 10px 5px;
+    margin: 10px 0;
 }
 .list li:hover {
     cursor: pointer;
@@ -14,9 +14,10 @@
 .list li {
     font-size: 18px;
     list-style: none;
+    padding: 0 5px;
 }
 .list button { 
-    border: 1.2px solid lightblue; 
+    border: 1px solid lightblue; 
     outline: none;
     margin: 10px 10px;
     border-radius: 10px 5px;
@@ -24,10 +25,11 @@
     padding: 5px;
     opacity: .6;
     transition: all .8s ease;
+    color: whitesmoke;
 }
 .list button:hover {
     cursor: pointer;
-    border: 1.9px solid lightblue;
+    border: 1.5px solid lightblue;
     opacity: 1;
     transition: all .8s linear;
 }

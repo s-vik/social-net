@@ -29,9 +29,3 @@ const SidebarRandomUserContainer = connect(mapStateToProps,
 
 
 export default SidebarRandomUserContainer;
-
-
-// this.generateRandomId(3).map((id) => {
-//   this.props.setRandomUser(id)
-//   return null
-//  })

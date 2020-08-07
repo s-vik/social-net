@@ -6,7 +6,7 @@ const Profile = (props) => {
   return (
     <div>
       <ProfileInfo {...props} updateStatus={props.updateStatus} status={props.status} profile = {props.profile}/>
-      <MyPostsContainer />
+      { (props.authUserId === props.profile.userId) && <MyPostsContainer />}
     </div>
   );
 }

@@ -11,7 +11,6 @@ const UsersContainer = (props) => {
     useEffect(() => {
             props.getUsers(props.currentPage, props.pageSize);
     }, [props.currentPage, props.pageSize]);
-
     const onPageChanged = (currentPage) => {
         props.setCurrentPage(currentPage);
         props.getUsers(currentPage, props.pageSize);
@@ -31,7 +30,6 @@ const UsersContainer = (props) => {
         </>
     );
 }
-
 const mapStateToProps = (state) => {
     return {
         users: extractUsers(state),
@@ -42,7 +40,6 @@ const mapStateToProps = (state) => {
         followingInProgress: state.usersPage.followingInProgress
     }
 }
-
 export default compose(
     connect(mapStateToProps, {
         follow,

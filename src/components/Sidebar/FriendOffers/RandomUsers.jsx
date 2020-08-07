@@ -1,11 +1,11 @@
 import React from 'react';
-import s from './SidebarRandomUser.module.css';
+import s from './Sidebar.module.css';
 import { NavLink } from 'react-router-dom';
 
 
 const RandomUsers = (props) => {
   return (
-    <div className={s.sidebar}>
+    <div className={s.makeFriends}>
       <h2>Make friends</h2>
       <ul className={s.friends}>
         {props.randomUsers.map(randomUser => {

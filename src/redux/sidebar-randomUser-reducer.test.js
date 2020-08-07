@@ -15,4 +15,4 @@ it('all identifiers should be unique, so array length === 2', () => {
     let newState = sidebarRandomUserReducer(state, action);
     expect(newState.randomUsers.length).toBe(2);
 })
-
+ 

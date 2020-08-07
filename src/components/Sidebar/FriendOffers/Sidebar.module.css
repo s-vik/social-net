@@ -1,0 +1,39 @@
+
+.makeFriends {
+    margin-top: 125px;
+}
+.makeFriends h2 {
+    text-transform: capitalize;
+    color: #fff;
+    font-weight: 100;
+    text-align: center;
+}
+.makeFriends .friends {
+    margin-top:30px;
+    display: flex;
+}
+.makeFriends .friends img {
+    width: 30px;
+    border-radius: 100%;
+}
+.makeFriends .friends li {
+    text-align: center;
+    margin: 10px;
+    max-width: 60px;
+    overflow: hidden;
+    list-style: none;
+}
+.makeFriends .friends li a {
+    outline: none;
+    text-decoration: none;
+    color: inherit;
+}
+.sidebarContainer {
+    background: linear-gradient(90deg,rgb(58, 113, 61),rgb(23, 59, 26));
+    padding: 20px;
+    position: relative;
+   }
+.App_sidebar {
+    grid-area: sidebar;
+    position: relative;
+  }
